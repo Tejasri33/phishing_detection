@@ -8,8 +8,8 @@ tldextract
 requests
 scikit-learn
 matplotlib
-seaborn
-sqlite3  
+seaborn  
+pysqlite3
 dnspython  
 validators  
 idna  
