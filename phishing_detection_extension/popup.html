@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Phishing Detector</title>
+    <style>
+      body {
+        width: 200px;
+        padding: 10px;
+        font-family: Arial, sans-serif;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: red;
+        color: white;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Phishing Detector</h3>
+    <button id="checkButton">Check Phishing</button>
+
+    <script>
+      document.getElementById('checkButton').addEventListener('click', () => {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+          const currentUrl = tabs[0].url;
+          chrome.runtime.sendMessage({ type: "checkPhishing", url: currentUrl }, (response) => {
+            if (response && response.isPhishing) {
+              alert("⚠️ WARNING: This website may be a phishing site!");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
+
