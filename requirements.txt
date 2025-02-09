@@ -1,0 +1,15 @@
+Flask
+gunicorn
+pandas
+numpy
+joblib
+whois
+tldextract
+requests
+scikit-learn
+matplotlib
+seaborn
+sqlite3  
+dnspython  
+validators  
+idna  
