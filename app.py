@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS
 import pandas as pd
 import joblib
 from urllib.parse import urlparse
@@ -8,8 +9,10 @@ import whois
 import datetime
 import socket
 import ssl
+import os  # Import os for PORT handling
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all requests
 
 # Load the trained phishing detection model
 model = joblib.load("phishing_model.pkl")
@@ -17,7 +20,6 @@ model = joblib.load("phishing_model.pkl")
 # Function to extract features from a given URL
 def extract_features(url):
     features = {}
-
     parsed_url = urlparse(url)
     domain = parsed_url.netloc
     ext = tldextract.extract(domain)
@@ -89,4 +91,5 @@ def home():
 
 # Run Flask App
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Use Render-assigned port
+    app.run(host="0.0.0.0", port=port, debug=True)
